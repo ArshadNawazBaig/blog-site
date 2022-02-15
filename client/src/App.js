@@ -7,6 +7,7 @@ import { NavbarCom } from "./components/Navbar";
 import { Hero } from "./containers/Hero";
 import { World } from "./containers/World";
 import { Popular } from "./containers/Popular";
+import { LifeStyle } from "./containers/LifeStyle";
 
 function App() {
   const posts = useSelector((state) => state.allPosts.posts);
@@ -25,6 +26,7 @@ function App() {
       <Hero posts={posts}/>
       <World />
       <Popular posts={posts}/>
+      <LifeStyle posts={posts}/>
     </div>
   );
 }

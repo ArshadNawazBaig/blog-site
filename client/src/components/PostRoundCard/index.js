@@ -5,7 +5,7 @@ export const PostRoundCard = ({ imgUrl, heading, time }) => {
     <CardWrapper>
       <img className="img-fluid storyImg" src={imgUrl} />
       <ContentWrapper>
-        <CardHeading>{heading}</CardHeading>
+        <CardHeading className="title-tag" to="/">{heading}</CardHeading>
         <CardTime>
           <img src={timeImg} className="timeImg img-fluid" />
           {time}
