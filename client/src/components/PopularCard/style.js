@@ -11,7 +11,6 @@ export const ContentWrapper = styled.div`
 `;
 export const CardHeading = styled(Tag)`
   width: calc(100%);
-  margin: 22px 10px 1px 19px;
   text-transform: capitalize;
   color: #151515 !important;
   font: normal 600 17px Jost;

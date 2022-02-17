@@ -8,6 +8,10 @@ import { Hero } from "./containers/Hero";
 import { World } from "./containers/World";
 import { Popular } from "./containers/Popular";
 import { LifeStyle } from "./containers/LifeStyle";
+import { register, login } from "./network/api/auth";
+import { loginAction, logoutAction } from "./redux/actions/authActions";
+import { setMessageAction } from "./redux/actions/messageActions";
+// import { authActions } from "./redux/actions/authActions";
 
 function App() {
   const posts = useSelector((state) => state.allPosts.posts);
@@ -19,14 +23,13 @@ function App() {
       })
       .catch((err) => console.log(err));
   }, []);
-  console.log(posts);
   return (
     <div className="App">
       <NavbarCom />
-      <Hero posts={posts}/>
+      <Hero posts={posts} />
       <World />
-      <Popular posts={posts}/>
-      <LifeStyle posts={posts}/>
+      <Popular posts={posts} />
+      <LifeStyle posts={posts} />
     </div>
   );
 }

@@ -9,13 +9,23 @@ import {
   Switch,
   Route,
   Redirect,
+  Routes,
 } from "react-router-dom";
+import { PrivateRoute } from "./components/ProtectedRoute";
+import { Register } from "./pages/Register";
+import { Login } from "./pages/Login";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <Router>
-        <App />
+        <Routes>
+          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/signup" element={<Register />} />
+          <Route exact path="/" element={<PrivateRoute />}>
+            <Route exact path="/" element={<App />} />
+          </Route>
+        </Routes>
       </Router>
     </Provider>
   </React.StrictMode>,

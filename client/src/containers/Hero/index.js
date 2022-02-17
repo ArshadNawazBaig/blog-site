@@ -1,15 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "reactstrap";
 import { PostCard } from "../../components/PostCard";
 
 export const Hero = ({posts}) => {
-  console.log(posts,"hello posts")
   return (
     <>
       <Container fluid>
         <Row>
           <Col md={5} className="ps-0 pe-1">
-            <PostCard title="Google To Boost Android Security In Few Days" username="Arshad" time="12 months ago" full category="calture" />
+          <PostCard title="Google To Boost Android Security In Few Days" username="Arshad" time="12 months ago" imageUrl="https://1.bp.blogspot.com/-x0367tk0G7M/YFC5NS-GN7I/AAAAAAAAFk0/vovvErpkwtgk4Rzn30VH1NxWhOMTVpP_gCLcBGAsYHQ/s960-rw/girl-yellow-folwers.jpg" category="Sports" full />
           </Col>
           <Col className="h-100">
             <Row>
