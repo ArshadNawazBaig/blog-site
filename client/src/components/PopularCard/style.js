@@ -1,7 +1,10 @@
 import styled from "styled-components";
 import { Link as Tag } from "react-router-dom";
 
-export const CardWrapper = styled.div``;
+export const CardWrapper = styled(Tag)`
+  cursor: pointer;
+  text-decoration: none;
+`;
 export const ContentWrapper = styled.div`
   position: relative;
   &:hover .title-tag {
@@ -9,7 +12,7 @@ export const ContentWrapper = styled.div`
     transition: background-size 0.6s !important;
   }
 `;
-export const CardHeading = styled(Tag)`
+export const CardHeading = styled.span`
   width: calc(100%);
   text-transform: capitalize;
   color: #151515 !important;

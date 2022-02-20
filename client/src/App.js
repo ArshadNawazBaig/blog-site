@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { getPosts } from "./network/api/post";
 import { useSelector, useDispatch } from "react-redux";
 import { getPostsAction } from "./redux/actions/postActions";
-import { NavbarCom } from "./components/Navbar";
 import { Hero } from "./containers/Hero";
 import { World } from "./containers/World";
 import { Popular } from "./containers/Popular";
@@ -25,7 +24,6 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <NavbarCom />
       <Hero posts={posts} />
       <World />
       <Popular posts={posts} />

@@ -28,6 +28,7 @@ export const Popular = ({posts}) => {
               full
               heading={post.title}
               index={index}
+              postId={post._id}
             />
           </Col>
         ))}

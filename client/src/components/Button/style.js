@@ -4,6 +4,7 @@ import { Button as Btn } from "reactstrap";
 export const ButtonWrapper = styled(Btn)`
   border: none;
   box-shadow: 1px 1px 20px 2px #ff5853;
+  outline: none;
   padding: 13px 25px;
   text-transform: capitalize;
   color: #ffffff;
@@ -13,6 +14,12 @@ export const ButtonWrapper = styled(Btn)`
     &:hover {
       background: #000000;
       box-shadow: 1px 1px 20px 2px #606060;
+      &:focus {
+        box-shadow: 1px 1px 20px 2px #606060;
+      }
+    }
+    &:focus {
+      box-shadow: 1px 1px 20px 2px #ff5853;
     }
   }
   &.round {

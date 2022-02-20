@@ -46,6 +46,9 @@ export const NavbarCom = () => {
               <Link to="/components/">Calture</Link>
             </NavItem>
             <NavItem>
+              <Link to="/post/add">Add Post</Link>
+            </NavItem>
+            <NavItem>
               <Link to="/components/" className="me-2">
                 Trending
               </Link>

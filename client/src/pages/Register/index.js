@@ -1,20 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row, Col, Spinner } from "reactstrap";
 import { register } from "../../network/api/auth";
 import { registerAction } from "../../redux/actions/authActions";
-import { setMessageAction } from "../../redux/actions/messageActions";
-import { useDispatch } from "react-redux";
+import {
+  clearMessageAction,
+  setMessageAction,
+} from "../../redux/actions/messageActions";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../../components/Button";
 import { FormWrapper, Field, Overlay } from "./style";
 import Logo from "./../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
-import { Heading } from "../Login/style";
+import { Heading, RedirectWrapper } from "../Login/style";
+import { ToastNotify } from "../../components/Toast";
 
 export const Register = () => {
+  const message = useSelector((state) => state.message);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [show, setShow] = useState(false);
+  const [toastStatus, setToastStatus] = useState({
+    icon: "",
+    title: "",
+    message: "",
+  });
   const initialValues = {
     username: "",
     email: "",
@@ -33,19 +45,46 @@ export const Register = () => {
   });
   const handleSignup = (fields) => {
     const { username, email, password } = fields;
+    setLoading(true);
     register({ username, email, password })
       .then((res) => {
+        console.log(res);
         dispatch(registerAction(res.data));
         dispatch(setMessageAction("User is successfully registred!"));
         navigate("/login");
+        setLoading(false);
       })
       .catch((err) => {
+        console.log(err.status);
         dispatch(setMessageAction(err.message));
+        setLoading(false);
+        setToastStatus({
+          icon: "danger",
+          title: "Error",
+          message: err.message,
+        });
+        setShow(true);
       });
+  };
+  useEffect(() => {
+    return () => {
+      dispatch(clearMessageAction());
+    };
+  });
+  const handleShow = (newValue) => {
+    setShow(newValue);
+    console.log(newValue);
   };
   return (
     <FormWrapper>
-      <Container fluid>
+      <ToastNotify
+        show={show}
+        handleShow={handleShow}
+        title={toastStatus.title}
+        icon={toastStatus.icon}
+        message={toastStatus.message}
+      />
+      <Container fluid className="outer-ovelay">
         <Row style={{ height: "100vh" }} className="align-items-center">
           <Col className="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
             <Row className="signup-inner">
@@ -54,7 +93,7 @@ export const Register = () => {
                   <img alt="logo" src={Logo} className="logo" />
                 </Overlay>
               </Col>
-              <Col sm={12} md={6}>
+              <Col sm={12} md={6} className="bg-white">
                 <Formik
                   initialValues={initialValues}
                   validationSchema={validationSchema}
@@ -135,12 +174,23 @@ export const Register = () => {
                             className="invalid-feedback"
                           />
                         </div>
-                        <div className="form-group py-3 d-flex justify-content-end">
-                          <Button type="submit" className="primary mr-2 round">
-                            Register
+                        <div className="form-group py-4 d-flex justify-content-center">
+                          <Button
+                            disabled={loading ? true : false}
+                            type="submit"
+                            className="primary mr-2 round"
+                          >
+                            Register Here{" "}
+                            {loading ? <Spinner>Loading...</Spinner> : ""}
                           </Button>
                         </div>
                       </Form>
+                      <RedirectWrapper>
+                        Already an account? Let's{" "}
+                        <span onClick={() => navigate("/login")}>
+                          Login Here
+                        </span>
+                      </RedirectWrapper>
                     </div>
                   )}
                 />

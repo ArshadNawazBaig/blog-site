@@ -3,6 +3,12 @@ import background from "./../../assets/signup.jpg";
 import { Field as Input } from "formik";
 
 export const FormWrapper = styled.div`
+  background-image: url(${background});
+  background-size: cover;
+  background-position: center;
+  & .outer-ovelay {
+    background: rgb(255 95 189 / 80%);
+  }
   & .form-left {
     background-image: url(${background});
     min-height: 630px;
@@ -11,11 +17,11 @@ export const FormWrapper = styled.div`
     display: inline-grid;
     width: 100%;
     align-items: center;
-    padding: 50px;
+    padding: 30px;
     min-height: 630px;
   }
   & .login-inner {
-    box-shadow: 1px 1px 20px 12px #e3e3e3;
+    box-shadow: 0px 15px 20px 9px #0000003d;
   }
   & .invalid-feedback {
     position: absolute;
@@ -27,6 +33,10 @@ export const FormWrapper = styled.div`
   & .form-control:focus {
     background: transparent;
     box-shadow: none;
+  }
+  & .spinner-border {
+    width: 1rem;
+    height: 1rem;
   }
 `;
 
@@ -60,4 +70,18 @@ export const Heading = styled.h2`
   margin-bottom: 18px;
   position: relative;
   border-bottom: 2px solid #f5f5f5;
+`;
+
+export const RedirectWrapper = styled.p`
+  color: #000000;
+  font: normal 300 16px Poppins;
+  display: block;
+  letter-spacing: -0.5px;
+  line-height: 14px;
+  position: relative;
+  & span {
+    color: #f13934;
+    text-decoration: underline;
+    cursor: pointer;
+  }
 `;
