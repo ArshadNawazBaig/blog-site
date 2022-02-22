@@ -4,6 +4,9 @@ import { Link as Tag } from "react-router-dom";
 export const CardWrapper = styled(Tag)`
   cursor: pointer;
   text-decoration: none;
+  & .storyImg {
+    height: 250px;
+  }
 `;
 export const ContentWrapper = styled.div`
   position: relative;

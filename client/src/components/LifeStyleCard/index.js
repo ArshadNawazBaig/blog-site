@@ -6,9 +6,9 @@ import {
   Time,
 } from "./style";
 import clock from "./../../assets/time.png";
-export const LifeStyleCard = ({ imgUrl, heading, category, time }) => {
+export const LifeStyleCard = ({ imgUrl, heading, category, time, postId }) => {
   return (
-    <CardWrapper>
+    <CardWrapper to={`/posts/${postId}`}>
       <img className="img-fluid storyImg" src={imgUrl} />
       <ContentWrapper className="mt-3">
         <div>

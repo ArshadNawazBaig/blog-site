@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { Link as ImgLink } from "react-router-dom";
 
-export const CardWrapper = styled.div`
+export const CardWrapper = styled(ImgLink)`
   position: relative;
   & .storyImg {
     height: 200px;
@@ -16,13 +16,13 @@ export const ContentWrapper = styled.div`
   left: 0;
   right: 0;
   margin: 0 auto;
-  bottom: -74px;
+  bottom: -164px;
   &:hover .title-tag {
     background-size: 100% 100%;
     transition: background-size 0.6s !important;
   }
 `;
-export const CardHeading = styled(ImgLink)`
+export const CardHeading = styled.span`
   width: calc(100%);
   text-transform: capitalize;
   color: #151515 !important;
@@ -34,7 +34,7 @@ export const CardHeading = styled(ImgLink)`
   text-decoration: none;
 `;
 
-export const CategoryTag = styled(ImgLink)`
+export const CategoryTag = styled.div`
   ${({ category }) => {
     if (category)
       switch (category.toLowerCase()) {

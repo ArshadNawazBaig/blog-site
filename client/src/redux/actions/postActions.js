@@ -21,10 +21,10 @@ export const deleteProductAction = (postId) => {
   };
 };
 
-export const getPostAction = (postId) => {
+export const getPostAction = (post) => {
   return {
     type: PostActionTypes.GET_POST,
-    payload: postId,
+    payload: post,
   };
 };
 

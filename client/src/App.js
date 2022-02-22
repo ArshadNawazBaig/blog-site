@@ -7,27 +7,32 @@ import { Hero } from "./containers/Hero";
 import { World } from "./containers/World";
 import { Popular } from "./containers/Popular";
 import { LifeStyle } from "./containers/LifeStyle";
-import { register, login } from "./network/api/auth";
-import { loginAction, logoutAction } from "./redux/actions/authActions";
-import { setMessageAction } from "./redux/actions/messageActions";
-// import { authActions } from "./redux/actions/authActions";
 
 function App() {
   const posts = useSelector((state) => state.allPosts.posts);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  useEffect(() => {
+  const handleFatchPosts = () => {
+    setLoading(true);
     getPosts()
       .then((res) => {
+        setLoading(false);
         dispatch(getPostsAction(res.data));
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setLoading(false);
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    handleFatchPosts();
   }, []);
   return (
     <div className="App">
-      <Hero posts={posts} />
+      <Hero posts={posts} loading={loading} />
       <World />
-      <Popular posts={posts} />
-      <LifeStyle posts={posts} />
+      <Popular posts={posts} loading={loading} />
+      <LifeStyle posts={posts} loading={loading} />
     </div>
   );
 }

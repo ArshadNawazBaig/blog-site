@@ -70,7 +70,7 @@ export const Register = () => {
     return () => {
       dispatch(clearMessageAction());
     };
-  });
+  }, []);
   const handleShow = (newValue) => {
     setShow(newValue);
     console.log(newValue);
