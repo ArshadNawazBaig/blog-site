@@ -1,38 +1,43 @@
 import "./App.css";
 import { useEffect, useState } from "react";
-import { getPosts } from "./network/api/post";
-import { useSelector, useDispatch } from "react-redux";
-import { getPostsAction } from "./redux/actions/postActions";
-import { Hero } from "./containers/Hero";
-import { World } from "./containers/World";
-import { Popular } from "./containers/Popular";
-import { LifeStyle } from "./containers/LifeStyle";
-
+import { Route, Routes, useLocation } from "react-router-dom";
+import { PrivateRoute } from "./components/ProtectedRoute";
+import { Register } from "./pages/Register";
+import { Login } from "./pages/Login";
+import PostForm from "./containers/Post/PostForm";
+import { NavbarCom } from "./components/Navbar";
+import { Post } from "./containers/Post";
+import Home from "./containers/Home";
+import { isTokenExpire } from "./helpers";
+import { Footer } from "./components/Footer";
+isTokenExpire();
 function App() {
-  const posts = useSelector((state) => state.allPosts.posts);
-  const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
-  const handleFatchPosts = () => {
-    setLoading(true);
-    getPosts()
-      .then((res) => {
-        setLoading(false);
-        dispatch(getPostsAction(res.data));
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log(err);
-      });
-  };
+  const location = useLocation();
+  const [hideFooter, setHideFooter] = useState(false);
   useEffect(() => {
-    handleFatchPosts();
-  }, []);
+    if (location.pathname === "/login" || location.pathname === "/signup") {
+      setHideFooter(false);
+    } else {
+      setHideFooter(true);
+    }
+  }, [location.pathname]);
   return (
     <div className="App">
-      <Hero posts={posts} loading={loading} />
-      <World />
-      <Popular posts={posts} loading={loading} />
-      <LifeStyle posts={posts} loading={loading} />
+      <NavbarCom />
+      <div className="inner">
+        <Routes>
+          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/signup" element={<Register />} />
+          <Route exact path="/posts/:postId" element={<Post />} />
+          <Route exact path="/" element={<PrivateRoute />}>
+            <Route exact path="/" element={<Home />} />
+          </Route>
+          <Route exact path="/post/add" element={<PrivateRoute />}>
+            <Route exact path="/post/add" element={<PostForm />} />
+          </Route>
+        </Routes>
+      </div>
+      {hideFooter && <Footer />}
     </div>
   );
 }

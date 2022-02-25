@@ -14,17 +14,15 @@ import { Navbar, Link } from "./style";
 import Logo from "./../../assets/logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutAction } from "../../redux/actions/authActions";
-import { setMessageAction } from "../../redux/actions/messageActions";
 import { useNavigate } from "react-router-dom";
 export const NavbarCom = () => {
   const auth = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const logout = () => {
-    console.log("logout");
     dispatch(logoutAction());
     localStorage.removeItem("user");
-    dispatch(setMessageAction("Logout successfully."));
+    navigate("/login");
   };
   return (
     <>
@@ -50,15 +48,17 @@ export const NavbarCom = () => {
             <NavItem>
               <Link to="/calture">Calture</Link>
             </NavItem>
-            <NavItem>
-              <Link to="/post/add">Add Post</Link>
-            </NavItem>
+            {auth && (
+              <NavItem>
+                <Link to="/post/add">Add Post</Link>
+              </NavItem>
+            )}
             <NavItem>
               <Link to="/trending" className="me-2">
                 Trending
               </Link>
             </NavItem>
-            {auth ? (
+            {auth && (
               <UncontrolledDropdown inNavbar nav className="ps-0">
                 <DropdownToggle nav>
                   <img className="user-img" src={Logo} />
@@ -69,8 +69,6 @@ export const NavbarCom = () => {
                   <DropdownItem divider />
                 </DropdownMenu>
               </UncontrolledDropdown>
-            ) : (
-              ""
             )}
           </Nav>
         </Collapse>

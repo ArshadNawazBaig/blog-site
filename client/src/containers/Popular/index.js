@@ -3,6 +3,7 @@ import { Container, Row, Col } from "reactstrap";
 import { Heading } from "../../components/Heading";
 import { Loader } from "../../components/Loader";
 import { PopularCard } from "../../components/PopularCard";
+import { titleHelper } from "../../helpers";
 
 export const Popular = ({ posts, loading }) => {
   const [popularPosts, setPopularPosts] = useState([]);
@@ -34,7 +35,7 @@ export const Popular = ({ posts, loading }) => {
                   <PopularCard
                     imgUrl={post.photo}
                     full
-                    heading={post.title}
+                    heading={titleHelper(post.title, 60)}
                     index={index}
                     postId={post._id}
                   />

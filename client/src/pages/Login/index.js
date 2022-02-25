@@ -3,8 +3,11 @@ import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Container, Row, Col, Spinner } from "reactstrap";
 import { login } from "../../network/api/auth";
-import { loginAction } from "../../redux/actions/authActions";
-import { clearMessageAction, setMessageAction } from "../../redux/actions/messageActions";
+import {
+  loginFailAction,
+  loginRequestAction,
+  loginSuccessAction,
+} from "../../redux/actions/authActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FormWrapper, Field, Overlay, Heading, RedirectWrapper } from "./style";
@@ -15,7 +18,9 @@ import { ToastNotify } from "../../components/Toast";
 export const Login = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const user = useSelector((state) => state.auth.user);
+  const loading = useSelector((state) => state.auth.loading);
+  const error = useSelector((state) => state.auth.error);
   const [show, setShow] = useState(false);
   const [toastStatus, setToastStatus] = useState({
     icon: "",
@@ -34,30 +39,29 @@ export const Login = (props) => {
   });
   const handleLogin = (fields) => {
     const { email, password } = fields;
-    setLoading(true);
+    dispatch(loginRequestAction());
     login({ email, password })
       .then((res) => {
-        dispatch(loginAction(res.data));
+        dispatch(loginSuccessAction(res.data));
         localStorage.setItem("user", JSON.stringify(res.data));
-        dispatch(setMessageAction("You are successfully logged in."));
         navigate("/");
-        setLoading(false);
       })
       .catch((err) => {
-        dispatch(setMessageAction(err.message));
-        setLoading(false);
-        setToastStatus({ icon: "danger", title: "Error", message: err.message });
+        dispatch(loginFailAction(err.message));
+        setToastStatus({ icon: "danger", title: "Error", message: error });
         setShow(true);
       });
   };
-  useEffect(() => {
-    return () => {
-      dispatch(clearMessageAction())
-    }
-  })
+
   const handleShow = (newValue) => {
     setShow(newValue);
   };
+
+  useEffect(() => {
+    if(user) {
+      return navigate('/')
+    }
+  }, []);
   return (
     <FormWrapper>
       <ToastNotify
@@ -68,7 +72,7 @@ export const Login = (props) => {
         message={toastStatus.message}
       />
       <Container fluid className="outer-ovelay">
-        <Row style={{ height: "100vh" }} className="align-items-center">
+        <Row style={{ height: "93.1vh" }} className="align-items-center">
           <Col className="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
             <Row className="login-inner">
               <Col sm={12} md={6} className="form-left px-0">

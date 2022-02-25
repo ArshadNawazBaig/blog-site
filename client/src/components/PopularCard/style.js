@@ -5,7 +5,8 @@ export const CardWrapper = styled(Tag)`
   cursor: pointer;
   text-decoration: none;
   & .storyImg {
-    height: 250px;
+    height: 200px;
+    width: 100%;
   }
 `;
 export const ContentWrapper = styled.div`

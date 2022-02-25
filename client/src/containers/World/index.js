@@ -3,8 +3,9 @@ import { Container, Row, Col } from "reactstrap";
 import { Heading } from "../../components/Heading";
 import { PostCard } from "../../components/PostCard";
 import { PostRoundCard } from "../../components/PostRoundCard";
+import { titleHelper } from "../../helpers";
 
-export const World = () => {
+export const World = ({posts}) => {
   return (
     <>
       <Container className="py-4">
@@ -48,13 +49,13 @@ export const World = () => {
             </Row>
           </Col>
           <Col md={3} className="h-100">
-            {[1, 2, 3, 4, 5].map((post, index) => (
+            {posts.map((post, index) => (
               <Row key={index} className="">
                 <Col>
                   <PostRoundCard
-                    heading="Google To Boost Android Security In Few Days"
+                    heading={titleHelper(post.title, 40)}
                     time="12 months ago"
-                    imgUrl="https://1.bp.blogspot.com/-pv151r3zopI/YE5KmCTHRTI/AAAAAAAAFj4/38olhxfy_dgm5zsTYQ4LHNrAMJW25EcSQCLcBGAsYHQ/s300-rw/travel.jpg"
+                    imgUrl={post.photo}
                   />
                 </Col>
               </Row>

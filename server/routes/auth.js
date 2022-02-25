@@ -55,7 +55,8 @@ router.post("/login", async (req, res) => {
         }
       );
       user.token = token;
-      res.status(200).json(user);
+      const {password, ...rest} = user._doc;
+      res.status(200).json(rest);
     }
     res.status(400).send("Invalid Credentials");
   } catch (err) {
