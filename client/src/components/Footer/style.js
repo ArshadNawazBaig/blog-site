@@ -3,7 +3,7 @@ import { Link as Tag } from "react-router-dom";
 
 export const FooterWrapper = styled.div`
   background: #000;
-  padding: 40px 0;
+  padding: 40px 0 16px 0;
 `;
 
 export const Intro = styled.div`
@@ -33,6 +33,7 @@ export const Title = styled.div`
   letter-spacing: 0.3px;
   margin-bottom: 10px;
   padding-bottom: 4px;
+  text-transform: uppercase;
 `;
 
 export const PostCard = styled(Tag)`
@@ -44,9 +45,25 @@ export const PostCard = styled(Tag)`
   margin-bottom: 15px;
   & img {
     margin-right: 15px;
-    width: 100px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    border: 2px solid #f13934;
   }
 `;
 
 export const Content = styled.div``;
+
+export const CopyWriteWrapper = styled.div`
+  background: #000000;
+  border-top: 1px solid #151515;
+  color: #767676;
+  font: normal 400 12px Poppins;
+  letter-spacing: 0.5px;
+`;
+
+export const CopyWriteWrapperInner = styled.div``;
+
+export const CopyWrite = styled.div``;
+
+export const CopyText = styled.div``;

@@ -10,7 +10,6 @@ import { Post } from "./containers/Post";
 import Home from "./containers/Home";
 import { isTokenExpire } from "./helpers";
 import { Footer } from "./components/Footer";
-isTokenExpire();
 function App() {
   const location = useLocation();
   const [hideFooter, setHideFooter] = useState(false);
@@ -20,6 +19,7 @@ function App() {
     } else {
       setHideFooter(true);
     }
+    isTokenExpire();
   }, [location.pathname]);
   return (
     <div className="App">

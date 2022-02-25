@@ -1,11 +1,11 @@
 import { axiosClient } from "./../../apiClient";
 
-export const getPosts = () => axiosClient.get("/posts");
+export const getPosts = async () => await axiosClient.get("/posts");
 
-export const getPost = (id) => axiosClient.get(`/posts/${id}`);
+export const getPost = async (id) => await axiosClient.get(`/posts/${id}`);
 
-export const addPost = (post) => axiosClient.post("/posts", post);
+export const addPost = async (post) => await axiosClient.post("/posts", post);
 
-export const deletePost = (id, username) => axiosClient.delete(`/posts/${id}`, {username});
+export const deletePost = async (id, username) => await axiosClient.delete(`/posts/${id}`, {username});
 
-export const updatePost = (id, post) => axiosClient.put(`posts/${id}`, post);
+export const updatePost = async (id, post) => await axiosClient.put(`posts/${id}`, post);

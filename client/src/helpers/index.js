@@ -13,3 +13,16 @@ export const isTokenExpire = () => {
 export const titleHelper = (title, chars) => {
   return title.substring(0, chars) + "...";
 };
+
+
+export const handleCategoryPosts = (posts, cateforyName) => {
+  const categoryPosts = [];
+  posts && posts.forEach(post => {
+    post.categories.forEach(cate => {
+      if(cate.toLowerCase() === cateforyName) {
+        categoryPosts.push(post)
+      }
+    })
+  });
+  return categoryPosts;
+}

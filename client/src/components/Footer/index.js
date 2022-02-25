@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Col, Container, Row } from "reactstrap";
+import { handleCategoryPosts, titleHelper } from "../../helpers";
+import { getPosts } from "../../network/api/post";
+import {
+  getPostAction,
+  getPostsRequestAction,
+  getPostsFailAction,
+} from "../../redux/actions/postActions";
 import LogoLight from "./../../assets/logo-light.png";
-import Red from "./../../assets/red-girl.jpg"
 import {
   FooterWrapper,
   Intro,
@@ -10,9 +17,32 @@ import {
   Title,
   PostCard,
   Content,
+  CopyWriteWrapper,
+  CopyWriteWrapperInner,
+  CopyWrite,
+  CopyText,
 } from "./style";
 
 export const Footer = () => {
+  const dispatch = useDispatch();
+  const [sports, setSports] = useState([]);
+  const [calture, setCalture] = useState([]);
+  const handleGetPosts = () => {
+    dispatch(getPostsRequestAction());
+    getPosts()
+      .then((res) => {
+        dispatch(getPostAction(res.data));
+        setSports(handleCategoryPosts(res.data, "sports"));
+        setCalture(handleCategoryPosts(res.data, "calture"));
+      })
+      .catch((err) => {
+        getPostsFailAction(err);
+      });
+  };
+  useEffect(() => {
+    handleGetPosts();
+  }, []);
+
   return (
     <FooterWrapper>
       <Container>
@@ -63,33 +93,23 @@ export const Footer = () => {
           </Col>
           <Col>
             <Title>SPORTS</Title>
-            <PostCard to="/">
-              <img src={Red} className="img-fluid" />
-              <Content>
-                Russia names 5 disputed islets in East China sea
-              </Content>
-            </PostCard>
-            <PostCard to="/">
-              <img src={Red} className="img-fluid" />
-              <Content>
-                Russia names 5 disputed islets in East China sea
-              </Content>
-            </PostCard>
+            {sports &&
+              sports.map((sport) => (
+                <PostCard to="/" key={sport._id}>
+                  <img src={sport.photo} className="img-fluid" />
+                  <Content>{titleHelper(sport.title, 50)}</Content>
+                </PostCard>
+              ))}
           </Col>
           <Col>
-            <Title>CRICKET</Title>
-            <PostCard to="/">
-              <img src={Red} className="img-fluid" />
-              <Content>
-                Russia names 5 disputed islets in East China sea
-              </Content>
-            </PostCard>
-            <PostCard to="/">
-              <img src={Red} className="img-fluid" />
-              <Content>
-                Russia names 5 disputed islets in East China sea
-              </Content>
-            </PostCard>
+            <Title>calture</Title>
+            {calture &&
+              calture.map((cal) => (
+                <PostCard to="/" key={cal._id}>
+                  <img src={cal.photo} className="img-fluid" />
+                  <Content>{titleHelper(cal.title, 50)}</Content>
+                </PostCard>
+              ))}
           </Col>
           <Col>
             <Title>LABELS</Title>
@@ -108,6 +128,31 @@ export const Footer = () => {
           </Col>
         </Row>
       </Container>
+      <CopyWriteWrapper className="mt-5">
+        <Container>
+          <CopyWriteWrapperInner className="d-flex justify-content-between align-items-center pt-3">
+            <CopyWrite>&copy; 2022 all rights reserved</CopyWrite>
+            <CopyText>
+              made with{" "}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="#f13934"
+                stroke="#ffffff"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="feather feather-heart"
+              >
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+              </svg>{" "}
+              by NorthSpex
+            </CopyText>
+          </CopyWriteWrapperInner>
+        </Container>
+      </CopyWriteWrapper>
     </FooterWrapper>
   );
 };
