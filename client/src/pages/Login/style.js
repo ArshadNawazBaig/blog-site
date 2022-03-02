@@ -6,12 +6,14 @@ export const FormWrapper = styled.div`
   background-image: url(${background});
   background-size: cover;
   background-position: center;
+  object-fit: cover;
   & .outer-ovelay {
-    background: rgb(255 95 189 / 80%);
+    background: rgb(0 0 0 / 80%);
   }
   & .form-left {
     background-image: url(${background});
     min-height: 630px;
+    object-fit: cover;
   }
   & .form-right {
     display: inline-grid;

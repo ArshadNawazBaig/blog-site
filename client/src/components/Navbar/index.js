@@ -40,13 +40,13 @@ export const NavbarCom = () => {
               <Link to="/">Home</Link>
             </NavItem>
             <NavItem>
-              <Link to="/sports">Sports</Link>
+              <Link to="/categories/sports">Sports</Link>
             </NavItem>
             <NavItem>
-              <Link to="/pakistan">Pakistan</Link>
+              <Link to="/categories/pakistan">Pakistan</Link>
             </NavItem>
             <NavItem>
-              <Link to="/calture">Calture</Link>
+              <Link to="/categories/calture">Calture</Link>
             </NavItem>
             {auth && (
               <NavItem>
@@ -54,7 +54,7 @@ export const NavbarCom = () => {
               </NavItem>
             )}
             <NavItem>
-              <Link to="/trending" className="me-2">
+              <Link to="/categories/trending" className="me-2">
                 Trending
               </Link>
             </NavItem>

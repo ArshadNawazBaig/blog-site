@@ -7,7 +7,7 @@ export const FormWrapper = styled.div`
   background-size: cover;
   background-position: center;
   & .outer-ovelay {
-    background: rgb(255 95 189 / 80%);
+    background: rgb(0 0 0 / 80%);
   }
   & .form-left {
     background-image: url(${background});

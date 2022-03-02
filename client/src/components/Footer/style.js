@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Link as Tag } from "react-router-dom";
 
 export const FooterWrapper = styled.div`
@@ -45,10 +45,17 @@ export const PostCard = styled(Tag)`
   margin-bottom: 15px;
   & img {
     margin-right: 15px;
-    width: 80px;
-    height: 80px;
-    border-radius: 100%;
-    border: 2px solid #f13934;
+    height: 65px;
+    object-fit: cover;
+    width: 65px;
+    border-radius: 4px;
+    // border: 1px solid;
+    // &.sport {
+    //   border-color: #ef559a;
+    // }
+    // &.calture {
+    //   border-color: #f58134;
+    // }
   }
 `;
 

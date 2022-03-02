@@ -14,17 +14,25 @@ import {
   Desc,
 } from "./style";
 import { titleHelper } from "../../helpers";
+import { useNavigate } from "react-router-dom";
 
-export const LatestCard = ({post}) => {
+export const LatestCard = ({ post, category }) => {
+  const navigate = useNavigate();
+  const handleClick = (e) => {
+    e.preventDefault();
+    navigate(`/categories/${category}`);
+  };
   return (
-    <CardWrapper to="/">
+    <CardWrapper to={`/posts/${post._id}`}>
       <Row>
         <Col sm={12} md={5}>
-          <ImageWrapper category={post.categories[0]} src={post.photo} />
+          <ImageWrapper category={category} src={post.photo} className="mb-2" />
         </Col>
         <Col sm={12} md={7}>
           <ContentWrapper>
-            <Cate category={post.categories[0]}>{post.categories[0]}</Cate>
+            <Cate category={category} onClick={(e) => handleClick(e)}>
+              {category}
+            </Cate>
             <TitleWrapper>
               <Title to="/" className="title-tag">
                 {titleHelper(post.title, 60)}
@@ -36,9 +44,7 @@ export const LatestCard = ({post}) => {
               <img src={Time} className="ms-4" />
               <UserName to="/">12 months ago</UserName>
             </UserInfo>
-            <Desc className="my-3">
-              {titleHelper(post.desc, 200)}
-            </Desc>
+            <Desc className="my-3">{titleHelper(post.desc, 200)}</Desc>
           </ContentWrapper>
         </Col>
       </Row>

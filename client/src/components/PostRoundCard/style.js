@@ -10,6 +10,7 @@ export const CardWrapper = styled.div`
   & .storyImg {
     margin-right: 20px;
     width: 80px;
+    object-fit: cover;
     height: 80px;
     border-radius: 100%;
   }

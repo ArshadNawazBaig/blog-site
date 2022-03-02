@@ -4,6 +4,7 @@ import { Heading } from "../../components/Heading";
 import { LifeStyleCard } from "../../components/LifeStyleCard";
 import { Loader } from "../../components/Loader";
 import { titleHelper } from "../../helpers";
+import { LifeStyleWrapper } from "./style";
 
 export const LifeStyle = ({ posts, loading }) => {
   const [popularPosts, setPopularPosts] = useState([]);
@@ -17,7 +18,7 @@ export const LifeStyle = ({ posts, loading }) => {
     };
   }, [posts]);
   return (
-    <>
+    <LifeStyleWrapper>
       <Container className="py-4 mb-4">
         <Row>
           <Col className="py-3">
@@ -27,14 +28,14 @@ export const LifeStyle = ({ posts, loading }) => {
         {loading ? (
           <Row>
             <Col>
-              <Loader />
+              <Loader align="center" height="200px" />
             </Col>
           </Row>
         ) : (
           <Row className="mb-4">
             {popularPosts &&
               popularPosts.map((post, index) => (
-                <Col md={3} className="" key={index}>
+                <Col md={3} className="margin-on-small" key={index}>
                   <LifeStyleCard
                     imgUrl={post.photo}
                     heading={titleHelper(post.title, 60)}
@@ -47,6 +48,6 @@ export const LifeStyle = ({ posts, loading }) => {
           </Row>
         )}
       </Container>
-    </>
+    </LifeStyleWrapper>
   );
 };

@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { FormWrapper, Field, Overlay, Heading, RedirectWrapper } from "./style";
 import { Button } from "../../components/Button";
 import Logo from "./../../assets/logo.png";
-import { ToastNotify } from "../../components/Toast";
+import { toast } from "react-toastify";
 
 export const Login = (props) => {
   const dispatch = useDispatch();
@@ -21,12 +21,6 @@ export const Login = (props) => {
   const user = useSelector((state) => state.auth.user);
   const loading = useSelector((state) => state.auth.loading);
   const error = useSelector((state) => state.auth.error);
-  const [show, setShow] = useState(false);
-  const [toastStatus, setToastStatus] = useState({
-    icon: "",
-    title: "",
-    message: "",
-  });
   const initialValues = {
     email: "",
     password: "",
@@ -48,29 +42,17 @@ export const Login = (props) => {
       })
       .catch((err) => {
         dispatch(loginFailAction(err.message));
-        setToastStatus({ icon: "danger", title: "Error", message: error });
-        setShow(true);
+        toast.error(err.message,
+           {position: toast.POSITION.TOP_RIGHT})
       });
   };
-
-  const handleShow = (newValue) => {
-    setShow(newValue);
-  };
-
   useEffect(() => {
-    if(user) {
-      return navigate('/')
+    if (user) {
+      return navigate("/");
     }
   }, []);
   return (
     <FormWrapper>
-      <ToastNotify
-        show={show}
-        handleShow={handleShow}
-        title={toastStatus.title}
-        icon={toastStatus.icon}
-        message={toastStatus.message}
-      />
       <Container fluid className="outer-ovelay">
         <Row style={{ height: "93.1vh" }} className="align-items-center">
           <Col className="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">

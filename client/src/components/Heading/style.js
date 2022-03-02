@@ -8,5 +8,6 @@ export const HeadingWrapper = styled.h2`
   line-height: 14px;
   margin-bottom: 18px;
   position: relative;
+  text-transform: capitalize;
   border-bottom: 2px solid #f5f5f5;
 `;

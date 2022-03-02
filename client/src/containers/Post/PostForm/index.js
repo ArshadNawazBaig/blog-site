@@ -87,7 +87,7 @@ export default function PostForm() {
             />
           </FormWrapper>
         </Col>
-        <Col className="col-md-6 offset-md-3">{/* <Froala /> */}</Col>
+        <Col className="col-md-6 offset-md-3"><Froala /></Col>
       </Row>
     </Container>
   );

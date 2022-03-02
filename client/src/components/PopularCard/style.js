@@ -7,6 +7,7 @@ export const CardWrapper = styled(Tag)`
   & .storyImg {
     height: 200px;
     width: 100%;
+    object-fit: cover;
   }
 `;
 export const ContentWrapper = styled.div`

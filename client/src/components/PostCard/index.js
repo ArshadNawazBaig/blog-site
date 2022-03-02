@@ -10,11 +10,11 @@ import {
   Dot,
   Time,
 } from "./style";
-export const PostCard = ({full, imageUrl, category, title, username, time }) => {
+export const PostCard = ({full, imageUrl, category, title, username, time, postId }) => {
   return (
     <>
       <CardWrapper>
-        <CardLink to="https://storymagdemo.blogspot.com/2017/01/google-to-boost-android-security-in-few.html">
+        <CardLink to={`/posts/${postId}`}>
           <CardImgWrapper
             full={full}
             imageUrl={imageUrl}
@@ -22,7 +22,7 @@ export const PostCard = ({full, imageUrl, category, title, username, time }) => 
           ></CardImgWrapper>
         </CardLink>
         <ContentWrapper>
-          <CategoryTag to="/search/label/featured" category={category}>{category ? category : 'All'}</CategoryTag>
+          <CategoryTag to={`/categories/${category}`} category={category}>{category ? category : 'All'}</CategoryTag>
           <CardHeading full={full}>
             <HeadingTag className="heading-tag">
               {title}

@@ -6,6 +6,7 @@ export const CardWrapper = styled(ImgLink)`
   & .storyImg {
     height: 200px;
     width: 100%;
+    object-fit: cover;
   }
 `;
 export const ContentWrapper = styled.div`
@@ -17,7 +18,7 @@ export const ContentWrapper = styled.div`
   right: 0;
   margin: 0 auto;
   bottom: -164px;
-  &:hover .title-tag {
+  & .title-tag:hover {
     background-size: 100% 100%;
     transition: background-size 0.6s !important;
   }

@@ -1,10 +1,30 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const SpinnerWrapper = styled.div`
+  ${(props) => {
+    switch (props.background) {
+      case "none":
+        return css`
+          background: none;
+        `;
+
+      default:
+        return css`
+          background: #fff;
+        `;
+    }
+  }}
+  ${(props) => {
+    return css`
+      min-height: ${props.height};
+    `;
+  }}
+  ${(props) => {
+    return css`
+      justify-content: ${props.align};
+    `;
+  }}
   display: flex;
   align-items: center;
-  justify-content: center;
-  min-height: 250px;
   width: 100%;
-  background: #fff;
 `;

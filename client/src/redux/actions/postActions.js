@@ -99,3 +99,23 @@ export const getPostsFailAction = (error) => {
     payload: error.message
   };
 };
+
+export const getPostsByCategoryRequestAction = () => {
+  return {
+    type: PostActionTypes.GET_POSTS_BY_CATEGORY_REQUEST
+  };
+};
+
+export const getPostsByCategoryAction = (posts) => {
+  return {
+    type: PostActionTypes.GET_POSTS_BY_CATEGORY_SUCCESS,
+    payload: posts
+  };
+};
+
+export const getPostsByCategoryFailAction = (error) => {
+  return {
+    type: PostActionTypes.GET_POSTS_BY_CATEGORY_FAIL,
+    payload: error.message
+  };
+};

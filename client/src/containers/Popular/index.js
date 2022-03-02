@@ -24,14 +24,14 @@ export const Popular = ({ posts, loading }) => {
         {loading ? (
           <Row>
             <Col>
-              <Loader />
+              <Loader align="center" height="200px" />
             </Col>
           </Row>
         ) : (
           <Row>
             {popularPosts &&
               popularPosts.map((post, index) => (
-                <Col md={3} className="" key={index}>
+                <Col md={3} className="mb-2" key={index}>
                   <PopularCard
                     imgUrl={post.photo}
                     full

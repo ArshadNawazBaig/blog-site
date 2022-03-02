@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Col, Container, Row } from "reactstrap";
 import { handleCategoryPosts, titleHelper } from "../../helpers";
 import { getPosts } from "../../network/api/post";
 import {
-  getPostAction,
   getPostsRequestAction,
   getPostsFailAction,
+  getPostsAction,
 } from "../../redux/actions/postActions";
+import { Loader } from "../Loader";
 import LogoLight from "./../../assets/logo-light.png";
 import {
   FooterWrapper,
@@ -25,29 +26,34 @@ import {
 
 export const Footer = () => {
   const dispatch = useDispatch();
+  const loading = useSelector((state) => state.allPosts.loading);
   const [sports, setSports] = useState([]);
   const [calture, setCalture] = useState([]);
   const handleGetPosts = () => {
     dispatch(getPostsRequestAction());
     getPosts()
       .then((res) => {
-        dispatch(getPostAction(res.data));
+        dispatch(getPostsAction(res.data));
         setSports(handleCategoryPosts(res.data, "sports"));
         setCalture(handleCategoryPosts(res.data, "calture"));
       })
       .catch((err) => {
-        getPostsFailAction(err);
+        dispatch(getPostsFailAction(err));
       });
   };
   useEffect(() => {
+    let abortController = new AbortController();
     handleGetPosts();
+    return () => {
+      abortController.abort();
+    };
   }, []);
 
   return (
     <FooterWrapper>
       <Container>
         <Row>
-          <Col>
+          <Col sm={12} md={6} lg={3}>
             <Link to="/">
               <img className="img-fluid" src={LogoLight} />
             </Link>
@@ -55,7 +61,7 @@ export const Footer = () => {
               Trends is an amazing magazine Blogger theme that is easy to
               customize and change to fit your needs.
             </Intro>
-            <ContactLink to="/">
+            <ContactLink to="/" className="me-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -91,27 +97,49 @@ export const Footer = () => {
               +92222-000-0000
             </ContactLink>
           </Col>
-          <Col>
+          <Col sm={12} md={6} lg={3}>
             <Title>SPORTS</Title>
-            {sports &&
-              sports.map((sport) => (
-                <PostCard to="/" key={sport._id}>
-                  <img src={sport.photo} className="img-fluid" />
-                  <Content>{titleHelper(sport.title, 50)}</Content>
-                </PostCard>
-              ))}
+            {loading ? (
+              <Loader
+                background="none"
+                color="white"
+                height="100px"
+                align="start"
+              />
+            ) : (
+              <>
+                {sports &&
+                  sports.slice(0, 2).map((sport) => (
+                    <PostCard to="/" key={sport._id}>
+                      <img src={sport.photo} className="img-fluid sport" />
+                      <Content>{titleHelper(sport.title, 50)}</Content>
+                    </PostCard>
+                  ))}
+              </>
+            )}
           </Col>
-          <Col>
+          <Col sm={12} md={6} lg={3}>
             <Title>calture</Title>
-            {calture &&
-              calture.map((cal) => (
-                <PostCard to="/" key={cal._id}>
-                  <img src={cal.photo} className="img-fluid" />
-                  <Content>{titleHelper(cal.title, 50)}</Content>
-                </PostCard>
-              ))}
+            {loading ? (
+              <Loader
+                background="none"
+                color="white"
+                height="100px"
+                align="start"
+              />
+            ) : (
+              <>
+                {calture &&
+                  calture.slice(0, 2).map((cal) => (
+                    <PostCard to="/" key={cal._id}>
+                      <img src={cal.photo} className="img-fluid calture" />
+                      <Content>{titleHelper(cal.title, 50)}</Content>
+                    </PostCard>
+                  ))}
+              </>
+            )}
           </Col>
-          <Col>
+          <Col sm={12} md={6} lg={3}>
             <Title>LABELS</Title>
             <ContactLink to="/" className="d-flex justify-content-between">
               Boxing <span>(8)</span>

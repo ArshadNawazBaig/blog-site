@@ -1,7 +1,9 @@
 import styled, { css } from "styled-components";
 import { Link as Tag } from "react-router-dom";
 
-export const CardWrapper = styled.div``;
+export const CardWrapper = styled(Tag)`
+  text-decoration: none;
+`;
 
 export const ImageWrapper = styled.div`
   width: 100%;
@@ -92,6 +94,7 @@ export const ContentWrapper = styled.div``;
 
 export const Cate = styled.div`
   display: inline-block;
+  color: #3a3a3a!important;
   margin-left: 16px;
   font: normal 300 14px Poppins;
   line-height: 21px;
@@ -174,7 +177,7 @@ export const UserName = styled.div`
 
 export const Desc = styled.div`
   color: #676767;
-  font: normal normal 14px Poppins;
+  font: normal normal 16px Poppins;
   line-height: 22px;
   position: relative;
 `;

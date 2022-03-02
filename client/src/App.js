@@ -10,6 +10,10 @@ import { Post } from "./containers/Post";
 import Home from "./containers/Home";
 import { isTokenExpire } from "./helpers";
 import { Footer } from "./components/Footer";
+import { Category } from "./containers/Category";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+toast.configure();
 function App() {
   const location = useLocation();
   const [hideFooter, setHideFooter] = useState(false);
@@ -29,6 +33,7 @@ function App() {
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<Register />} />
           <Route exact path="/posts/:postId" element={<Post />} />
+          <Route exact path="/categories/:slug" element={<Category />} />
           <Route exact path="/" element={<PrivateRoute />}>
             <Route exact path="/" element={<Home />} />
           </Route>

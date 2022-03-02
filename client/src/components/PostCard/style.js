@@ -23,6 +23,9 @@ export const CardImgWrapper = styled.div`
     return props.full
       ? css`
           height: 100%;
+          @media (max-width: 768px) {
+            height: 300px;
+          }
         `
       : css`
           height: 300px;
@@ -58,7 +61,7 @@ export const ContentWrapper = styled.div`
   bottom: 18px;
   position: absolute;
   cursor: pointer;
-  &:hover .heading-tag {
+  & .heading-tag:hover  {
     background-size: 100% 100%;
     transition: background-size 0.6s;
     color: #fff !important;
@@ -155,7 +158,7 @@ export const Dot = styled.div`
   border-radius: 100%;
   display: inline-block;
   height: 5px;
-  margin-right: 10px;
+  margin-right: -10px;
   position: relative;
   top: -1px;
   width: 5px;
@@ -168,4 +171,5 @@ export const Time = styled.div`
   font: normal 500 12px Poppins;
   margin-top: 1px;
   line-height: inherit;
+  margin-left: 23px;
 `;

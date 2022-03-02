@@ -26,20 +26,20 @@ export const Latest = ({ posts, loading }) => {
           {loading ? (
             <Row>
               <Col>
-                <Loader />
+              <Loader align="center" height="500px" />
               </Col>
             </Row>
           ) : (
             <Row>
-              <Col>
+              <Col sm={12} md={9}>
                 {popularPosts &&
                   popularPosts.map((post, index) => (
-                    <Col md={12} className="" key={index} className="mb-5">
-                      <LatestCard post={post} />
+                    <Col md={12} key={index} className="mb-5">
+                      <LatestCard post={post} category={post.categories[0]} />
                     </Col>
                   ))}
               </Col>
-              <Col className="py-3 col-3">
+              <Col className="py-3" sm={12} md={3}>
                 <AdWrapper className="">
                   <img className="img-fluid" src={Ad} />
                 </AdWrapper>
