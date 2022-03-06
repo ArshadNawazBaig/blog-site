@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "reactstrap";
+import { Empty } from "../../components/Empty";
 import { Loader } from "../../components/Loader";
 import { PostCard } from "../../components/PostCard";
 import { titleHelper } from "../../helpers";
@@ -10,7 +11,7 @@ export const Hero = ({ posts, loading }) => {
       <Container fluid>
         {loading ? (
           <Loader background="white" align="center" height="610px" />
-        ) : (
+        ) : posts.length > 0 ? (
           <Row>
             <Col md={5} className="ps-0 pe-1">
               <PostCard
@@ -66,7 +67,7 @@ export const Hero = ({ posts, loading }) => {
               </Row>
             </Col>
           </Row>
-        )}
+        ) : <Empty height={500} justify="center" fontSize={20}>No posts found</Empty>}
       </Container>
     </>
   );

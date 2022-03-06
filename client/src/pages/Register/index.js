@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Container, Row, Col, Spinner } from "reactstrap";
-import { register } from "../../network/api/auth";
 import {
-  registerFailAction,
-  registerRequestAction,
-  registerSuccessAction,
+  registerAction,
 } from "../../redux/actions/authActions";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../../components/Button";
@@ -14,7 +11,6 @@ import { FormWrapper, Field, Overlay } from "./style";
 import Logo from "./../../assets/logo.png";
 import { useNavigate } from "react-router-dom";
 import { Heading, RedirectWrapper } from "../Login/style";
-import { ToastNotify } from "../../components/Toast";
 import { toast } from "react-toastify";
 
 export const Register = () => {
@@ -41,25 +37,19 @@ export const Register = () => {
   });
   const handleSignup = (fields) => {
     const { username, email, password } = fields;
-    dispatch(registerRequestAction());
-    register({ username, email, password })
-      .then((res) => {
-        console.log(res);
-        dispatch(registerSuccessAction(res.data));
-        navigate("/login");
-      })
-      .catch((err) => {
-        dispatch(registerFailAction(err.message));
-        toast.error(err.message,
-          {position: toast.POSITION.TOP_RIGHT})
-      });
+    dispatch(registerAction({username, email, password}));
   };
 
   useEffect(() => {
     if (user) {
       return navigate("/");
     }
-  });
+  }, [user, navigate]);
+
+  useEffect(() => {
+    error && toast.error(error,
+      {position: toast.POSITION.TOP_RIGHT})
+  }, [error]);
   return (
     <FormWrapper>
       <Container fluid className="outer-ovelay">

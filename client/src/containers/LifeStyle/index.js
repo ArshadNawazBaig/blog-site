@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "reactstrap";
+import { Empty } from "../../components/Empty";
 import { Heading } from "../../components/Heading";
 import { LifeStyleCard } from "../../components/LifeStyleCard";
 import { Loader } from "../../components/Loader";
@@ -31,7 +32,7 @@ export const LifeStyle = ({ posts, loading }) => {
               <Loader align="center" height="200px" />
             </Col>
           </Row>
-        ) : (
+        ) : posts.length > 0 ? (
           <Row className="mb-4">
             {popularPosts &&
               popularPosts.map((post, index) => (
@@ -46,6 +47,10 @@ export const LifeStyle = ({ posts, loading }) => {
                 </Col>
               ))}
           </Row>
+        ) : (
+          <Empty height={250} justify="center" fontSize={20}>
+            No posts found
+          </Empty>
         )}
       </Container>
     </LifeStyleWrapper>

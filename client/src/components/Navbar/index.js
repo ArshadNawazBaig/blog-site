@@ -66,7 +66,6 @@ export const NavbarCom = () => {
                 <DropdownMenu end>
                   <DropdownItem>{auth.username}</DropdownItem>
                   <DropdownItem onClick={() => logout()}>Logout</DropdownItem>
-                  <DropdownItem divider />
                 </DropdownMenu>
               </UncontrolledDropdown>
             )}

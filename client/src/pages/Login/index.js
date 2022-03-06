@@ -1,13 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Container, Row, Col, Spinner } from "reactstrap";
-import { login } from "../../network/api/auth";
-import {
-  loginFailAction,
-  loginRequestAction,
-  loginSuccessAction,
-} from "../../redux/actions/authActions";
+import { loginAction } from "../../redux/actions/authActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FormWrapper, Field, Overlay, Heading, RedirectWrapper } from "./style";
@@ -33,24 +28,16 @@ export const Login = (props) => {
   });
   const handleLogin = (fields) => {
     const { email, password } = fields;
-    dispatch(loginRequestAction());
-    login({ email, password })
-      .then((res) => {
-        dispatch(loginSuccessAction(res.data));
-        localStorage.setItem("user", JSON.stringify(res.data));
-        navigate("/");
-      })
-      .catch((err) => {
-        dispatch(loginFailAction(err.message));
-        toast.error(err.message,
-           {position: toast.POSITION.TOP_RIGHT})
-      });
+    dispatch(loginAction({ email, password }));
   };
   useEffect(() => {
     if (user) {
       return navigate("/");
     }
-  }, []);
+  }, [user, navigate]);
+  useEffect(() => {
+    error && toast.error(error, { position: toast.POSITION.TOP_RIGHT });
+  }, [error]);
   return (
     <FormWrapper>
       <Container fluid className="outer-ovelay">

@@ -3,14 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Col, Container, Row } from "reactstrap";
 import { handleCategoryPosts, titleHelper } from "../../helpers";
-import { getPosts } from "../../network/api/post";
-import {
-  getPostsRequestAction,
-  getPostsFailAction,
-  getPostsAction,
-} from "../../redux/actions/postActions";
+import { getPostsAction } from "../../redux/actions/postActions";
 import { Loader } from "../Loader";
 import LogoLight from "./../../assets/logo-light.png";
+import { toast } from "react-toastify";
 import {
   FooterWrapper,
   Intro,
@@ -23,31 +19,23 @@ import {
   CopyWrite,
   CopyText,
 } from "./style";
+import { Empty } from "../Empty";
 
 export const Footer = () => {
   const dispatch = useDispatch();
-  const loading = useSelector((state) => state.allPosts.loading);
+  const { loading, error, posts } = useSelector((state) => state.allPosts);
   const [sports, setSports] = useState([]);
   const [calture, setCalture] = useState([]);
-  const handleGetPosts = () => {
-    dispatch(getPostsRequestAction());
-    getPosts()
-      .then((res) => {
-        dispatch(getPostsAction(res.data));
-        setSports(handleCategoryPosts(res.data, "sports"));
-        setCalture(handleCategoryPosts(res.data, "calture"));
-      })
-      .catch((err) => {
-        dispatch(getPostsFailAction(err));
-      });
-  };
+
   useEffect(() => {
-    let abortController = new AbortController();
-    handleGetPosts();
-    return () => {
-      abortController.abort();
-    };
-  }, []);
+    dispatch(getPostsAction());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setSports(handleCategoryPosts(posts, "sports"));
+    setCalture(handleCategoryPosts(posts, "calture"));
+    error && toast.error(error, { position: toast.POSITION.TOP_RIGHT });
+  }, [posts, error]);
 
   return (
     <FooterWrapper>
@@ -106,17 +94,20 @@ export const Footer = () => {
                 height="100px"
                 align="start"
               />
-            ) : (
+            ) : sports.length > 0 ? (
               <>
-                {sports &&
+                {sports ? (
                   sports.slice(0, 2).map((sport) => (
                     <PostCard to="/" key={sport._id}>
                       <img src={sport.photo} className="img-fluid sport" />
                       <Content>{titleHelper(sport.title, 50)}</Content>
                     </PostCard>
-                  ))}
+                  ))
+                ) : (
+                  <div>Hello</div>
+                )}
               </>
-            )}
+            ) : <Empty color="white">No Sports posts found</Empty>}
           </Col>
           <Col sm={12} md={6} lg={3}>
             <Title>calture</Title>
@@ -127,7 +118,7 @@ export const Footer = () => {
                 height="100px"
                 align="start"
               />
-            ) : (
+            ) : calture.length > 0 ? (
               <>
                 {calture &&
                   calture.slice(0, 2).map((cal) => (
@@ -137,7 +128,7 @@ export const Footer = () => {
                     </PostCard>
                   ))}
               </>
-            )}
+            ): <Empty color="white">No Calture posts found</Empty>}
           </Col>
           <Col sm={12} md={6} lg={3}>
             <Title>LABELS</Title>

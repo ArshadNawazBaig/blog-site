@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "reactstrap";
+import { Empty } from "../../components/Empty";
 import { Heading } from "../../components/Heading";
 import { Loader } from "../../components/Loader";
 import { PopularCard } from "../../components/PopularCard";
@@ -27,7 +28,7 @@ export const Popular = ({ posts, loading }) => {
               <Loader align="center" height="200px" />
             </Col>
           </Row>
-        ) : (
+        ) : posts.length > 0 ? (
           <Row>
             {popularPosts &&
               popularPosts.map((post, index) => (
@@ -42,7 +43,7 @@ export const Popular = ({ posts, loading }) => {
                 </Col>
               ))}
           </Row>
-        )}
+        ) : <Empty height={250} justify="center" fontSize={20}>No posts found</Empty>}
       </Container>
     </>
   );

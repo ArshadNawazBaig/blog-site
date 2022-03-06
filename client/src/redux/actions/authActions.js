@@ -1,3 +1,4 @@
+import { login, register } from "../../network/api/auth";
 import { authActionTypes } from "../actionTypes/authActionTypes";
 
 export const registerRequestAction = () => {
@@ -44,4 +45,29 @@ export const logoutAction = () => {
   return {
     type: authActionTypes.LOGOUT,
   };
+};
+
+export const loginAction = (user) => {
+  return async (dispatch) => {
+    dispatch(loginRequestAction());
+    try {
+      const res = await login(user)
+      localStorage.setItem("user", JSON.stringify(res.data));
+      dispatch(loginSuccessAction(res.data));
+    } catch (error) {
+      dispatch(loginFailAction(error.message))
+    }
+  }
+};
+
+export const registerAction = (user) => {
+  return async (dispatch) => {
+    dispatch(registerRequestAction());
+    try {
+      const res = await register(user);
+      dispatch(registerSuccessAction(res.data))
+    } catch (error) {
+      dispatch(registerFailAction(error.message));
+    }
+  }
 };

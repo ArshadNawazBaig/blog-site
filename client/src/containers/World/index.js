@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Row, Col } from "reactstrap";
+import { Empty } from "../../components/Empty";
 import { Heading } from "../../components/Heading";
 import { Loader } from "../../components/Loader";
 import { PostCard } from "../../components/PostCard";
@@ -17,7 +18,7 @@ export const World = ({ posts, worldPosts, loading }) => {
         </Row>
         {loading ? (
           <Loader background="white" align="center" height="610px" />
-        ) : (
+        ) : posts.length > 0 ? (
           <Row>
             <Col md={6} className="">
               <PostCard
@@ -75,7 +76,7 @@ export const World = ({ posts, worldPosts, loading }) => {
               ))}
             </Col>
           </Row>
-        )}
+        ): <Empty height={500} justify="center" fontSize={20}>No posts found</Empty>}
       </Container>
     </>
   );
