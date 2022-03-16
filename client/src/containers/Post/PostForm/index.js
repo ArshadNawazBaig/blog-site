@@ -22,7 +22,6 @@ export default function PostForm() {
       .required("Description is required"),
   });
   const handleAddPost = (fields) => {
-    console.log(fields);
   };
   return (
     <Container>
